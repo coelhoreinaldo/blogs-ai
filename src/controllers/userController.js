@@ -30,7 +30,6 @@ const createUser = async (req, res, next) => {
   if (!body.image) {
     body.image = null;
   }
-  console.log(body);
   userService.createUser(body);
 
   const { password: _password, ...userWithoutPassword } = req.body;
@@ -40,4 +39,9 @@ const createUser = async (req, res, next) => {
   return res.status(201).json({ token });
 };
 
-module.exports = createUser;
+const findAll = async (_req, res) => {
+  const allUsers = await userService.findAll();
+  return res.status(200).json(allUsers);
+};
+
+module.exports = { createUser, findAll };
