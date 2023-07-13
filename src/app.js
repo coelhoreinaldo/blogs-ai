@@ -1,4 +1,6 @@
 const express = require('express');
+const middlewares = require('./middlewares');
+const login = require('./controllers/login');
 
 // ...
 
@@ -11,8 +13,9 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-// ...
+app.post('/login', login);
 
+app.use(middlewares.error);
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
