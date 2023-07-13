@@ -1,23 +1,24 @@
-const Joi = require('joi');
 const { userService } = require('../services');
 const { generateToken } = require('../auth/authFunctions');
 
-const validateBody = (body) =>
-  Joi.object({
-    email: Joi.string().required().messages({
-      'string.empty': 'Some required fields are missing',
-      'any.required': 'Some required fields are missing',
-    }),
-    password: Joi.string().required().messages({
-      'string.empty': 'Some required fields are missing',
-      'any.required': 'Some required fields are missing',
-    }),
-  }).validate(body);
+// const validateBody = (body) =>
+//   Joi.object({
+//     email: Joi.string().required().messages({
+//       'string.empty': 'Some required fields are missing',
+//       'any.required': 'Some required fields are missing',
+//     }),
+//     password: Joi.string().required().messages({
+//       'string.empty': 'Some required fields are missing',
+//       'any.required': 'Some required fields are missing',
+//     }),
+//   }).validate(body);
 
-const login = async (req, res, next) => {
-  const { error } = validateBody(req.body);
-  if (error) return next(error);
-  const { email, password } = req.body;
+const login = async (req, res) => {
+  const { body } = req;
+  if (!body.email || !body.password) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  const { email, password } = body;
   const userEmail = await userService.getByEmail(email);
 
   if (!userEmail || userEmail.password !== password) {
