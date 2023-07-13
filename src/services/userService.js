@@ -7,6 +7,8 @@ const createUser = ({ displayName, email, password, image }) =>
 
 const findAll = () => User.findAll({ attributes: { exclude: ['password'] } });
 
+const findById = (id) => User.findByPk(id, { attributes: { exclude: ['password'] } });
+
 module.exports = {
-  getByEmail, createUser, findAll,
+  getByEmail, createUser, findAll, findById,
 };

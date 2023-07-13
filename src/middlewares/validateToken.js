@@ -13,7 +13,8 @@ const validateToken = async (req, res, next) => {
       return next(err);
     }
     const token = extractToken(bearerToken);
-    getPayload(token, secret);
+    const { data } = getPayload(token, secret);
+    req.body = data;
     return next();
   } catch (err) {
     err.statusCode = 401;

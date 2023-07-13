@@ -44,4 +44,15 @@ const findAll = async (_req, res) => {
   return res.status(200).json(allUsers);
 };
 
-module.exports = { createUser, findAll };
+const findById = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userService.findById(id);
+  if (!user) {
+    const err = new Error('User does not exist');
+    err.statusCode = 404;
+    return next(err);
+  }
+  return res.status(200).json(user);
+};
+
+module.exports = { createUser, findAll, findById };

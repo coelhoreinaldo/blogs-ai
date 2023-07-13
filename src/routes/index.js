@@ -9,5 +9,6 @@ route.post('/login', login);
 route.post('/user', userController.createUser);
 
 route.get('/user', validateToken, userController.findAll);
+route.get('/user/:id', validateToken, userController.findById);
 
 module.exports = route;
