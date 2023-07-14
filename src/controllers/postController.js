@@ -97,4 +97,10 @@ const destroy = async (req, res) => {
   return res.status(204).end();
 };
 
-module.exports = { insert, findAll, findById, update, destroy };
+const findByQuery = async (req, res) => {
+  const { q } = req.query;
+  const posts = await postService.findByQuery(q);
+  return res.status(200).json(posts);
+};
+
+module.exports = { insert, findAll, findById, update, destroy, findByQuery };

@@ -16,8 +16,9 @@ route.post('/categories', validateToken, categoryController.insert);
 route.get('/categories', validateToken, categoryController.findAll);
 
 route.post('/post', validateToken, postController.insert);
-route.get('/post', validateToken, postController.findAll);
+route.get('/post/search', validateToken, postController.findByQuery);
 route.get('/post/:id', validateToken, postController.findById);
+route.get('/post', validateToken, postController.findAll);
 route.put('/post/:id', validateToken, postController.update);
 route.delete('/post/:id', validateToken, postController.destroy);
 

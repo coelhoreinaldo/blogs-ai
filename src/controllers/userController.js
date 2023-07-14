@@ -57,7 +57,6 @@ const findById = async (req, res, next) => {
 
 const destroy = async (req, res) => {
   const { data } = req.payload;
-  // const user = await userService.findById(data.id);
   await userService.destroy(data.id);
   return res.status(204).end();
 };
