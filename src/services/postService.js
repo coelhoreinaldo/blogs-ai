@@ -36,4 +36,18 @@ const findAll = () => BlogPost.findAll({
   }],
 });
 
-module.exports = { insert, findAll };
+const findById = (id) => BlogPost.findOne({
+  where: { id },
+  include: [{
+    model: User,
+    as: 'user',
+    attributes: { exclude: ['password'] },
+  },
+  {
+    model: Category,
+    as: 'categories',
+    through: { attributes: [] },
+  }],
+});
+
+module.exports = { insert, findAll, findById };
