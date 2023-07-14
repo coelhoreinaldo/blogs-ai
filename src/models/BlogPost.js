@@ -35,11 +35,18 @@ const BlogPostSchema = (sequelize, DataTypes) => {
     }
   },
     {
-      timestamps: false,
       underscored: true,
-      tableName: 'blog_posts'
+      tableName: 'blog_posts',
+      timestamps: true,
+      createdAt: 'published',
+      updatedAt: 'updated'
     },
   );
+
+  BlogPostTable.associate = ({ User }) => {
+    BlogPostTable.belongsTo(User,
+      { foreignKey: 'userId', as: 'users' })
+  }
 
   return BlogPostTable;
 }
