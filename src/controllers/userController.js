@@ -55,4 +55,11 @@ const findById = async (req, res, next) => {
   return res.status(200).json(user);
 };
 
-module.exports = { createUser, findAll, findById };
+const destroy = async (req, res) => {
+  const { data } = req.payload;
+  // const user = await userService.findById(data.id);
+  await userService.destroy(data.id);
+  return res.status(204).end();
+};
+
+module.exports = { createUser, findAll, findById, destroy };

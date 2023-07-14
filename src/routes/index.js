@@ -10,6 +10,7 @@ route.post('/login', login);
 route.post('/user', userController.createUser);
 route.get('/user', validateToken, userController.findAll);
 route.get('/user/:id', validateToken, userController.findById);
+route.delete('/user/me', validateToken, userController.destroy);
 
 route.post('/categories', validateToken, categoryController.insert);
 route.get('/categories', validateToken, categoryController.findAll);

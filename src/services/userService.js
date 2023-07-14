@@ -9,6 +9,8 @@ const findAll = () => User.findAll({ attributes: { exclude: ['password'] } });
 
 const findById = (id) => User.findByPk(id, { attributes: { exclude: ['password'] } });
 
+const destroy = (id) => User.destroy({ where: { id } });
+
 module.exports = {
-  getByEmail, createUser, findAll, findById,
+  getByEmail, createUser, findAll, findById, destroy,
 };
