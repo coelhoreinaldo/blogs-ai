@@ -1,5 +1,6 @@
 const userService = require('./userService');
+const categoriesService = require('./categoryService');
 
 module.exports = {
-  userService,
+  userService, categoriesService,
 };
