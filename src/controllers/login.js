@@ -29,7 +29,7 @@ const login = async (req, res) => {
 
   const { password: _password, ...userWithoutPassword } = userEmail.dataValues;
 
-  const payload = { data: userWithoutPassword };
+  const payload = userWithoutPassword;
 
   const token = generateToken(payload);
 

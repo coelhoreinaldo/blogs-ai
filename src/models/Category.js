@@ -1,5 +1,5 @@
 const CategorySchema = (sequelize, DataTypes) => {
-  const CategorySchema = sequelize.define('Category', {
+  const CategoryTable = sequelize.define('Category', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -18,7 +18,7 @@ const CategorySchema = (sequelize, DataTypes) => {
     },
   );
 
-  return CategorySchema;
+  return CategoryTable;
 }
 
 module.exports = CategorySchema
