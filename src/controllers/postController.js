@@ -82,4 +82,19 @@ const update = async (req, res, next) => {
   return res.status(200).json(updatedPost);
 };
 
-module.exports = { insert, findAll, findById, update };
+const destroy = async (req, res) => {
+  const { data } = req.payload;
+  const { id } = req.params;
+  const post = await postService.findById(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  if (post.user.id !== data.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+
+  await postService.destroy(id);
+  return res.status(204).end();
+};
+
+module.exports = { insert, findAll, findById, update, destroy };

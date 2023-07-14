@@ -51,7 +51,7 @@ const findById = (id) => BlogPost.findOne({
 });
 
 const update = async (title, content, id) => {
-  const result = await sequelize.transaction(async (t) => {
+  const updatedPostId = await sequelize.transaction(async (t) => {
     const updatedPost = await BlogPost.update(
       {
         title, content,
@@ -65,7 +65,20 @@ const update = async (title, content, id) => {
     return updatedPost;
   });
 
-  return findById(result);
+  return findById(updatedPostId);
 };
 
-module.exports = { insert, findAll, findById, update };
+const destroy = async (id) => {
+  await sequelize.transaction(async (t) => {
+    const deleledId = await BlogPost.destroy(
+      {
+        where: { id },
+      },
+
+      { transaction: t },
+    );
+    return deleledId;
+  });
+};
+
+module.exports = { insert, findAll, findById, update, destroy };
