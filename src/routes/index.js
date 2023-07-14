@@ -17,5 +17,6 @@ route.get('/categories', validateToken, categoryController.findAll);
 route.post('/post', validateToken, postController.insert);
 route.get('/post', validateToken, postController.findAll);
 route.get('/post/:id', validateToken, postController.findById);
+route.put('/post/:id', validateToken, postController.update);
 
 module.exports = route;

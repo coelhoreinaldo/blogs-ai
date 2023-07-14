@@ -50,4 +50,22 @@ const findById = (id) => BlogPost.findOne({
   }],
 });
 
-module.exports = { insert, findAll, findById };
+const update = async (title, content, id) => {
+  const result = await sequelize.transaction(async (t) => {
+    const updatedPost = await BlogPost.update(
+      {
+        title, content,
+      },
+      {
+        where: { id },
+      },
+
+      { transaction: t },
+    );
+    return updatedPost;
+  });
+
+  return findById(result);
+};
+
+module.exports = { insert, findAll, findById, update };

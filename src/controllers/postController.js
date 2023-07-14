@@ -21,6 +21,18 @@ const validateBody = (body) =>
       }),
   }).validate(body);
 
+const validateBodyToUpdate = (body) =>
+  Joi.object({
+    title: Joi.string().required().messages({
+      'string.empty': requiredFieldsMessage,
+      'any.required': requiredFieldsMessage,
+    }),
+    content: Joi.string().required().messages({
+      'string.empty': requiredFieldsMessage,
+      'any.required': requiredFieldsMessage,
+    }),
+  }).validate(body);
+
 const insert = async (req, res, next) => {
   const { error } = validateBody(req.body);
   if (error) return next(error);
@@ -51,4 +63,23 @@ const findById = async (req, res) => {
   return res.status(200).json(post);
 };
 
-module.exports = { insert, findAll, findById };
+const update = async (req, res, next) => {
+  const { data } = req.payload;
+  const { id } = req.params;
+  const post = await postService.findById(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  if (post.user.id !== data.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  const { error } = validateBodyToUpdate(req.body);
+  if (error) {
+    return next(error);
+  }
+  const { title, content } = req.body;
+  const updatedPost = await postService.update(title, content, post.id);
+  return res.status(200).json(updatedPost);
+};
+
+module.exports = { insert, findAll, findById, update };
