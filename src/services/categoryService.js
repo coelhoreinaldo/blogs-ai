@@ -2,4 +2,6 @@ const { Category } = require('../models');
 
 const insert = (name) => Category.create({ name });
 
-module.exports = { insert };
+const findAll = () => Category.findAll();
+
+module.exports = { insert, findAll };
