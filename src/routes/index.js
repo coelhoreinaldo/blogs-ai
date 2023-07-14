@@ -1,6 +1,6 @@
 const express = require('express');
 const login = require('../controllers/login');
-const { userController, categoryController } = require('../controllers');
+const { userController, categoryController, postController } = require('../controllers');
 const validateToken = require('../middlewares/validateToken');
 
 const route = express.Router();
@@ -13,5 +13,7 @@ route.get('/user/:id', validateToken, userController.findById);
 
 route.post('/categories', validateToken, categoryController.insert);
 route.get('/categories', validateToken, categoryController.findAll);
+
+route.post('/post', validateToken, postController.insert);
 
 module.exports = route;

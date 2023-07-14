@@ -11,7 +11,8 @@ const validateToken = async (req, res, next) => {
   }
   try {
     const token = extractToken(bearerToken) || bearerToken;
-    getPayload(token);
+    const payload = getPayload(token);
+    req.payload = payload;
     return next();
   } catch (err) {
     err.statusCode = 401;

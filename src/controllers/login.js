@@ -1,18 +1,6 @@
 const { userService } = require('../services');
 const { generateToken } = require('../auth/authFunctions');
 
-// const validateBody = (body) =>
-//   Joi.object({
-//     email: Joi.string().required().messages({
-//       'string.empty': 'Some required fields are missing',
-//       'any.required': 'Some required fields are missing',
-//     }),
-//     password: Joi.string().required().messages({
-//       'string.empty': 'Some required fields are missing',
-//       'any.required': 'Some required fields are missing',
-//     }),
-//   }).validate(body);
-
 const login = async (req, res) => {
   const { body } = req;
   if (!body.email || !body.password) {
@@ -29,8 +17,7 @@ const login = async (req, res) => {
 
   const { password: _password, ...userWithoutPassword } = userEmail.dataValues;
 
-  const payload = userWithoutPassword;
-
+  const payload = { data: userWithoutPassword };
   const token = generateToken(payload);
 
   return res.status(200).json({ token });
