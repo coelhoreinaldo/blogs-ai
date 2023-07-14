@@ -4,33 +4,21 @@ const { postService, categoriesService } = require('../services');
 const requiredFieldsMessage = 'Some required fields are missing';
 const validateBody = (body) =>
   Joi.object({
-    title: Joi.string().required().messages({
-      'string.empty': requiredFieldsMessage,
-      'any.required': requiredFieldsMessage,
-    }),
-    content: Joi.string().required().messages({
-      'string.empty': requiredFieldsMessage,
-      'any.required': requiredFieldsMessage,
-    }),
-    categoryIds: Joi.array()
-      .items(Joi.number().required())
-      .required()
-      .messages({
-        'string.empty': requiredFieldsMessage,
-        'any.required': requiredFieldsMessage,
-      }),
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    categoryIds: Joi.array().items(Joi.number().required()).required(),
+  }).messages({
+    'string.empty': requiredFieldsMessage,
+    'any.required': requiredFieldsMessage,
   }).validate(body);
 
 const validateBodyToUpdate = (body) =>
   Joi.object({
-    title: Joi.string().required().messages({
-      'string.empty': requiredFieldsMessage,
-      'any.required': requiredFieldsMessage,
-    }),
-    content: Joi.string().required().messages({
-      'string.empty': requiredFieldsMessage,
-      'any.required': requiredFieldsMessage,
-    }),
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  }).messages({
+    'string.empty': requiredFieldsMessage,
+    'any.required': requiredFieldsMessage,
   }).validate(body);
 
 const insert = async (req, res, next) => {
