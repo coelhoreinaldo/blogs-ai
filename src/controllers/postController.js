@@ -37,4 +37,9 @@ const insert = async (req, res, next) => {
   return res.status(201).json(newPost);
 };
 
-module.exports = { insert };
+const findAll = async (req, res) => {
+  const posts = await postService.findAll();
+  return res.status(200).json(posts);
+};
+
+module.exports = { insert, findAll };
