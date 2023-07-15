@@ -4,21 +4,17 @@ const { generateToken } = require('../auth/authFunctions');
 
 const validateBody = (body) =>
   Joi.object({
-    displayName: Joi.string().min(8).required().messages({
-      'string.min': '"displayName" length must be at least 8 characters long',
-      'any.required': '"displayName" length must be at least 8 characters long',
-    }),
+    displayName: Joi.string().min(8).required(),
     email: Joi.string().email().required().messages({
       'string.empty': '"email" must be a valid email',
       'any.required': '"email" must be a valid email',
       'string.email': '"email" must be a valid email',
     }),
-    password: Joi.string().min(6).required().messages({
-      'string.min': '"password" length must be at least 6 characters long',
-      'string.empty': '"password" length must be at least 6 characters long',
-      'any.required': '"password" length must be at least 6 characters long',
-    }),
+    password: Joi.string().min(6).required(),
     image: Joi.string(),
+  }).messages({
+    'string.min': '{:#key} length must be at least {#limit} characters long',
+    'any.required': '{:#key} length must be at least {#limit} characters long',
   }).validate(body);
 
 const createUser = async (req, res, next) => {
